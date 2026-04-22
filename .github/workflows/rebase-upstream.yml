@@ -1,0 +1,47 @@
+name: Rebase onto awinterstein/self-host
+
+on:
+  schedule:
+    - cron: "38 2 * * *"  # nightly — after awinterstein's 01:38 rebase onto HabitRPG
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    outputs:
+      rebased: ${{ steps.rebase.outputs.rebased }}
+    steps:
+      - name: Checkout self-host-local
+        uses: actions/checkout@v4
+        with:
+          ref: self-host-local
+          fetch-depth: 0
+
+      - name: Rebase on awinterstein/habitica:self-host
+        id: rebase
+        run: |
+          set -e
+
+          git remote add upstream https://github.com/awinterstein/habitica.git
+          git fetch --depth=500 upstream self-host
+
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name  "GitHub Actions"
+
+          BEFORE=$(git rev-parse HEAD)
+          if ! git rebase upstream/self-host; then
+            echo "rebase_failed=true" >> $GITHUB_OUTPUT
+            git rebase --abort
+            exit 1
+          fi
+          AFTER=$(git rev-parse HEAD)
+
+          if [ "$BEFORE" != "$AFTER" ]; then
+            git push origin self-host-local --force-with-lease
+            echo "rebased=true" >> $GITHUB_OUTPUT
+          else
+            echo "rebased=false" >> $GITHUB_OUTPUT
+          fi
