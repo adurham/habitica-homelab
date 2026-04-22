@@ -24,6 +24,11 @@ body {
   // pushing toggle switches off-screen. Stack cells vertically instead.
   @media (max-width: 576px) {
     padding: 12px;
+    // Safety net: individual children (esp. shop backgrounds, featured
+    // headers) sometimes render wider than the viewport. Clip the overflow
+    // at the page level rather than hunting every child.
+    max-width: 100vw;
+    overflow-x: hidden;
 
     .table {
       table-layout: auto;

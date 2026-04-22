@@ -37,13 +37,22 @@
             />
           </td>
         </tr>
-        <tr v-if="webPush.supported && webPush.serverEnabled">
+        <tr v-if="webPush.serverEnabled">
           <td>
             <span class="bold">Browser push notifications</span> <br>
             <small>
               Receive Habitica notifications from this browser/PWA even when the
               tab is closed. Per-device setting — toggle on each browser you use.
             </small>
+            <div
+              v-if="!webPush.supported"
+              class="text-muted"
+            >
+              <small>
+                Not supported in this browser. On iOS, add this site to your
+                Home Screen and open it from there (iOS 16.4+).
+              </small>
+            </div>
             <div
               v-if="webPush.error"
               class="text-danger"
@@ -54,7 +63,7 @@
           <td>
             <toggle-switch
               :checked="webPush.subscribed"
-              :disabled="webPush.busy"
+              :disabled="webPush.busy || !webPush.supported"
               @change="toggleWebPush($event)"
             />
           </td>
