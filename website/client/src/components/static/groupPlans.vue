@@ -241,6 +241,35 @@
     .bot-left, .bot-right, .top-left, .top-right {
       display: none;
     }
+    // Clamp hero/feature images so they don't push the page wider than the
+    // viewport (which otherwise off-centres the text and clips the first
+    // character of each line).
+    .group-plan-page {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    .party {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      margin-top: 24px;
+    }
+    .group-plan-page img {
+      max-width: 100%;
+      height: auto;
+    }
+    h1 {
+      font-size: 32px;
+      line-height: 40px;
+    }
+    h2 {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    p {
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 
   // Images

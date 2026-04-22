@@ -1,6 +1,6 @@
 <template>
   <div class="row market">
-    <div class="standard-sidebar">
+    <div class="standard-sidebar d-none d-sm-block">
       <filter-sidebar>
         <div
           slot="search"
