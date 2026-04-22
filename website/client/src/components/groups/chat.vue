@@ -243,6 +243,26 @@ export default {
     .chat-send-actions {
       padding-right: 0;
     }
+
+    // Mobile: two col-6 halves can't fit three buttons side by side.
+    // Stack each action block full-width and let the buttons flow.
+    @media (max-width: 576px) {
+      .chat-receive-actions,
+      .chat-send-actions {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: left;
+      }
+
+      .chat-receive-actions button,
+      .chat-send-actions button {
+        float: none !important;
+        width: 100%;
+        margin-right: 0 !important;
+      }
+    }
   }
 
   .chat-row {

@@ -86,6 +86,16 @@
     width: 378px;
   }
 
+  // Mobile: let each notification item shrink to the available width of
+  // the dropdown (which itself is capped by the viewport — see page.scss).
+  @media (max-width: 576px) {
+    .dropdown-item {
+      width: 100%;
+      max-width: 100%;
+      padding: 12px 16px;
+    }
+  }
+
   .dropdown-title {
     margin-bottom: 0px;
     margin-right: 8px;

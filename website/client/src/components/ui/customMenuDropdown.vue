@@ -9,10 +9,17 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
     tabindex="0"
     :class="{open: isOpen}"
     :aria-pressed="isPressed"
-    @click="toggleDropdown()"
     @keypress.enter.space.stop.prevent="toggleDropdown()"
   >
-    <div class="habitica-menu-dropdown-toggle">
+    <!-- Only the toggle element toggles. Previously the outer wrapper's
+         @click handler caught bubbled clicks from inner items, closing
+         the dropdown on iOS Safari before the link's own click handler
+         could complete navigation (symptom: tapping Profile/Settings in
+         the user dropdown appeared to do nothing). -->
+    <div
+      class="habitica-menu-dropdown-toggle"
+      @click.stop="toggleDropdown()"
+    >
       <slot name="dropdown-toggle"></slot>
     </div>
     <div
@@ -56,6 +63,15 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
     ::v-deep .dropdown-separated {
       border-bottom: 1px solid $gray-500;
     }
+
+    // Mobile: cap dropdown width to viewport so right-anchored dropdowns
+    // don't extend off the left edge when their content is wider than the
+    // screen. Applies to notifications, user avatar, etc.
+    @media (max-width: 576px) {
+      max-width: calc(100vw - 16px);
+      width: auto;
+      overflow-x: hidden;
+    }
   }
 
   &.open {
@@ -93,6 +109,18 @@ export default {
   },
   beforeDestroy () {
     document.removeEventListener('click', this._clickOutListener);
+  },
+  watch: {
+    // Auto-close when the route changes. Since the toggle button no longer
+    // closes the dropdown on bubbled clicks (inner router-links used to
+    // break because of that), this is how the dropdown closes after a
+    // user navigates via a menu item.
+    $route () {
+      if (this.isDropdownOpen) {
+        this.isDropdownOpen = false;
+        this.$emit('toggled', false);
+      }
+    },
   },
   methods: {
     _clickOutListener (e) {

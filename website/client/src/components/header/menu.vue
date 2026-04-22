@@ -688,7 +688,11 @@ body.modal-open #habitica-menu {
     }
 
     #menu_collapse {
-      margin: 0.6em -16px -8px;
+      // Remove the -16px horizontal bleed on phone-width viewports — it
+      // was pushing each menu item 16px past the right edge, clipping the
+      // submenu chevrons. Keep a small bleed on tablets where there's
+      // room. (Original: margin: 0.6em -16px -8px)
+      margin: 0.6em 0 -8px;
       overflow: auto;
       flex-direction: column;
       background-color: $purple-100;

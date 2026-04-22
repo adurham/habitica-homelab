@@ -388,6 +388,21 @@
       margin-right: 0 !important;
     }
 
+    // Center the hero character image and constrain to viewport — it has
+    // a hardcoded width="357px" attribute which was leaving ~45px of dead
+    // space on the right of a 402px phone viewport.
+    #intro-signup img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    #intro-signup .w-33 {
+      text-align: center;
+      padding: 0 1rem;
+    }
+
     #front h1 {
       font-size: 32px !important;
       line-height: 1.2 !important;
