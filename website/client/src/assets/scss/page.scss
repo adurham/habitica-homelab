@@ -47,13 +47,18 @@ body {
   // that wrap onto a second row on narrow viewports and overflow the banner
   // downward, covering the page header below ("l Shop", "d Quest Bundles").
   // Clip the overflow and let the featured items scroll horizontally instead.
-  .featuredItems {
-    overflow: hidden;
+  .featuredItems,
+  .seasonal .featuredItems,
+  .quests .featuredItems {
+    overflow: hidden !important;
 
-    .background .content .items {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      max-width: 100%;
+    .background .content .items,
+    .content .items,
+    .items {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      max-width: 100% !important;
       -webkit-overflow-scrolling: touch;
     }
   }
