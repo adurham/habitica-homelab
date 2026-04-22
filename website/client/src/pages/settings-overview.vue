@@ -101,9 +101,39 @@
     flex: 0 0 751px;
     max-width: unset;
 
+    // Mobile: settings were rendering at a hardcoded 751px, overflowing
+    // small viewports and cutting content off on both sides. Release the
+    // fixed flex-basis and let the column widths (label/value/button)
+    // fall back to auto so the narrow-viewport stacked-table rules in
+    // page.scss actually have room to work.
+    @media (max-width: 768px) {
+      flex: 1 1 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+
     ::v-deep {
       table td {
         padding: 0.5rem;
+      }
+
+      @media (max-width: 576px) {
+        // Reset the fixed column widths — stacking needs cells to flex.
+        .settings-label,
+        .settings-value,
+        .settings-button {
+          width: auto !important;
+          text-align: left;
+          display: block;
+          padding: 0.25rem 0.5rem;
+        }
+        .settings-button {
+          text-align: right;
+        }
+        .input-area {
+          width: auto;
+          max-width: 100%;
+        }
       }
 
       table tr.expanded td {

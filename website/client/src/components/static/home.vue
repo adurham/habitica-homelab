@@ -370,6 +370,35 @@
     width: 33%;
   }
 
+  // Mobile: the signup hero uses two .w-33 columns with 5rem side margins
+  // (mx-5) which together are wider than an iPhone viewport. Stack them
+  // and let each column be full-width.
+  @media (max-width: 768px) {
+    .w-33 {
+      width: 100%;
+    }
+
+    #intro-signup > .d-flex {
+      flex-direction: column !important;
+    }
+
+    #intro-signup .mr-5,
+    #intro-signup .ml-5 {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    #front h1 {
+      font-size: 32px !important;
+      line-height: 1.2 !important;
+    }
+
+    #front h2 {
+      font-size: 28px !important;
+      line-height: 1.2 !important;
+    }
+  }
+
   #front {
     .container-fluid {
       margin: 0;

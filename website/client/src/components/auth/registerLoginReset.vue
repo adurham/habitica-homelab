@@ -339,6 +339,15 @@
       padding-left: .5em;
       padding-right: .5em;
     }
+    // Login/register/reset forms have a hardcoded width:448px. Let them
+    // shrink to the viewport on phone-sized screens.
+    #login-form, #forgot-form, #reset-password-set-new-one-form {
+      width: 100% !important;
+      max-width: 100%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 3em;
+    }
   }
 
   .form-wrapper {
