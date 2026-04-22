@@ -73,6 +73,30 @@ body {
       tr:first-child td:first-child {
         border-top: none;
       }
+
+      // Notification settings has 3-cell rows (label + email toggle + push toggle).
+      // Keep the label full-width and lay the two toggles side-by-side under the
+      // "Email" / "Push" column headers instead of stacking everything vertically.
+      tr:has(td.email_push_col) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        > td.bold {
+          flex: 1 1 100%;
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+          padding-bottom: 0.25rem;
+          text-align: left;
+        }
+        > td.email_push_col {
+          flex: 0 0 50%;
+          width: auto !important;
+          display: flex;
+          justify-content: center;
+          padding: 0.25rem 0 !important;
+          border-top: none !important;
+        }
+      }
     }
   }
 }
