@@ -37,6 +37,28 @@
             />
           </td>
         </tr>
+        <tr v-if="webPush.supported && webPush.serverEnabled">
+          <td>
+            <span class="bold">Browser push notifications</span> <br>
+            <small>
+              Receive Habitica notifications from this browser/PWA even when the
+              tab is closed. Per-device setting — toggle on each browser you use.
+            </small>
+            <div
+              v-if="webPush.error"
+              class="text-danger"
+            >
+              <small>{{ webPush.error }}</small>
+            </div>
+          </td>
+          <td>
+            <toggle-switch
+              :checked="webPush.subscribed"
+              :disabled="webPush.busy"
+              @change="toggleWebPush($event)"
+            />
+          </td>
+        </tr>
         <tr>
           <td></td>
           <td></td>
@@ -227,12 +249,20 @@ toggle-switch {
 import { mapState } from '@/libs/store';
 import notificationsMixin from '@/mixins/notifications';
 import ToggleSwitch from '@/components/ui/toggleSwitch';
+import * as webPushLib from '@/libs/webPush';
 
 export default {
   components: { ToggleSwitch },
   mixins: [notificationsMixin],
   data () {
     return {
+      webPush: {
+        supported: webPushLib.isSupported(),
+        serverEnabled: false,
+        subscribed: false,
+        busy: false,
+        error: '',
+      },
       notificationsIds: Object.freeze([
         'majorUpdates',
         'newPM',
@@ -268,6 +298,21 @@ export default {
       section: this.$t('settings'),
       subSection: this.$t('notifications'),
     });
+
+    // Probe server Web Push config + current browser subscription state so
+    // the toggle reflects reality on page load.
+    if (this.webPush.supported) {
+      try {
+        const status = await webPushLib.getStatus();
+        this.webPush.serverEnabled = status.enabled;
+        if (status.enabled) {
+          const sub = await webPushLib.currentSubscription();
+          this.webPush.subscribed = Boolean(sub);
+        }
+      } catch (err) {
+        this.webPush.error = err.message || String(err);
+      }
+    }
     // If ?unsubFrom param is passed with valid email type,
     // automatically unsubscribe users from that email and
     // show an alert
@@ -297,6 +342,24 @@ export default {
     },
     showBailey () {
       this.$root.$emit('bv::show::modal', 'new-stuff');
+    },
+    async toggleWebPush (enable) {
+      this.webPush.busy = true;
+      this.webPush.error = '';
+      try {
+        if (enable) {
+          const label = `${navigator.userAgent.split(')')[0].split('(')[1] || 'browser'}`;
+          await webPushLib.subscribe(label);
+          this.webPush.subscribed = true;
+        } else {
+          await webPushLib.unsubscribe();
+          this.webPush.subscribed = false;
+        }
+      } catch (err) {
+        this.webPush.error = err.message || String(err);
+      } finally {
+        this.webPush.busy = false;
+      }
     },
   },
 };

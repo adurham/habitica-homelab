@@ -9,6 +9,7 @@ import {
   isRestrictedEmailDomain,
 } from '../../libs/auth/utils';
 import { schema as PushDeviceSchema } from '../pushDevice';
+import { schema as WebPushSubscriptionSchema } from '../webPushSubscription';
 import { schema as SubscriptionPlanSchema } from '../subscriptionPlan';
 import { schema as TagSchema } from '../tag';
 import { schema as UserNotificationSchema } from '../userNotification';
@@ -728,6 +729,7 @@ export const UserSchema = new Schema({
     default: () => ({}),
   },
   pushDevices: [PushDeviceSchema],
+  webPushSubscriptions: [WebPushSubscriptionSchema],
   _ABtests: {
     $type: Schema.Types.Mixed,
     default: () => ({}),

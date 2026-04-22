@@ -61,6 +61,18 @@ if (import.meta.env.TIME_TRAVEL_ENABLED === 'true') {
   })();
 }
 
+// Register the Web Push service worker (self-host addition).
+// Registration alone does not prompt for notification permission — that
+// only happens when the user toggles push on in Notification Settings.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => {
+      // eslint-disable-next-line no-console
+      console.warn('Service worker registration failed:', err);
+    });
+  });
+}
+
 const vueInstance = new Vue({
   el: '#app',
   router,
