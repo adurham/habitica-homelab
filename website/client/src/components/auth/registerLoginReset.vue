@@ -34,6 +34,10 @@
           v-model="username"
           class="form-control dark"
           type="text"
+          autocapitalize="none"
+          autocorrect="off"
+          spellcheck="false"
+          autocomplete="username"
           :placeholder="$t('emailOrUsername')"
           :class="{
             'input-valid': usernameValid,
@@ -61,6 +65,10 @@
           v-model="email"
           class="form-control dark"
           type="email"
+          autocapitalize="none"
+          autocorrect="off"
+          spellcheck="false"
+          autocomplete="email"
           :placeholder="$t('emailPlaceholder')"
           :class="{
             'input-invalid input-with-error': emailError,
@@ -93,6 +101,7 @@
           v-model="password"
           class="form-control dark"
           type="password"
+          :autocomplete="registering ? 'new-password' : 'current-password'"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
           :class="{
             'input-invalid input-with-error': passwordInvalid,
@@ -222,6 +231,10 @@
             v-model="username"
             class="form-control dark"
             type="text"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+            autocomplete="username"
             :placeholder="$t('emailUsernamePlaceholder')"
             :class="{
               'input-valid': usernameValid,
