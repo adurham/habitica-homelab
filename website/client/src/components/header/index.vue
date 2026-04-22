@@ -84,6 +84,16 @@
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
+
+    // On phones, the character panel eats ~35% of the viewport (tall avatar
+    // + HP/XP bars stacked) leaving little room for actual content. Tighten
+    // padding and rely on member-details scaling down naturally.
+    @media (max-width: 576px) {
+      padding-left: 12px;
+      padding-right: 12px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
   }
 
   .hide-header {

@@ -103,6 +103,17 @@
     .avatar-container {
       margin-bottom: 20px;
     }
+
+    // Mobile: compress the character panel so it doesn't eat 35%+ of
+    // the viewport. Shrinks the avatar block and tightens stats padding.
+    @media (max-width: 576px) {
+      .avatar-container {
+        transform: scale(0.7);
+        transform-origin: top left;
+        margin-bottom: 0;
+        margin-right: -40px; // compensate for scaled-down reserved space
+      }
+    }
   }
 
   .standard-page .member-details {

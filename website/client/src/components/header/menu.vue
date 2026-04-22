@@ -449,6 +449,11 @@ body.modal-open #habitica-menu {
     z-index: 1080;
     background: $purple-100 url(@/assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
+    // Respect iOS notch / Dynamic Island when running as a home-screen PWA.
+    // Without this, nav icons crash up against the status bar indicators.
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 
     a {

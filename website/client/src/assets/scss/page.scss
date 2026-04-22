@@ -17,6 +17,49 @@ body {
 .standard-page {
   padding: 24px;
   flex: 1;
+
+  // ── Mobile layout fixes (self-host) ───────────────────────────
+  // On narrow viewports the settings pages' two-column tables (label +
+  // toggle) overflow the viewport, cutting off text on both sides and
+  // pushing toggle switches off-screen. Stack cells vertically instead.
+  @media (max-width: 576px) {
+    padding: 12px;
+
+    .table {
+      table-layout: auto;
+      width: 100%;
+
+      tr, tbody, thead {
+        display: block;
+        width: 100%;
+      }
+
+      td {
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0;
+        border-top: none;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+
+        &:first-child {
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        // Right-align controls (toggles, buttons) that are in the second
+        // column when stacked.
+        &:last-child {
+          text-align: right;
+          padding-bottom: 0.75rem;
+        }
+      }
+
+      tr:first-child td:first-child {
+        border-top: none;
+      }
+    }
+  }
 }
 
 .page-header {
