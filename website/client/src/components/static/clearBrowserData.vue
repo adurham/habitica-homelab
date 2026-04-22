@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid text-center">
     <div class="row">
-      <div class="col-md-6 offset-3">
+      <div class="col-12 col-md-6 offset-md-3">
         <h1>{{ $t('clearBrowserData') }}</h1>
         <p v-html="$t('localStorageTryFirst', localStorageTryFirst) "></p>
         <br>

@@ -8,7 +8,7 @@
         :class="{ static: isStaticPage }"
       >
         <div class="top-left"></div>
-        <div class="col-6 offset-3 mb-100">
+        <div class="col-12 col-md-6 offset-md-3 mb-100">
           <img
             class="party"
             src="../../assets/images/group-plans-static/party@3x.png"
@@ -62,7 +62,7 @@
         </div>
         <div class="text-center mb-128">
           <div class="bot-left"></div>
-          <div class="col-6 offset-3">
+          <div class="col-12 col-md-6 offset-md-3">
             <h2
               v-if="upgradingGroup._id"
               class="purple-300 mt-0 mb-4"
@@ -228,6 +228,19 @@
 
   .w-448 {
     width: 448px;
+    max-width: 100%;
+  }
+
+  @media (max-width: 576px) {
+    .gap-72 { gap: 24px; }
+    .mb-100 { margin-bottom: 48px !important; }
+    .mb-128 { margin-bottom: 56px !important; }
+    .d-flex.w-100 {
+      flex-direction: column;
+    }
+    .bot-left, .bot-right, .top-left, .top-right {
+      display: none;
+    }
   }
 
   // Images

@@ -327,6 +327,17 @@
     min-width: 330px;
   }
 
+  @media (max-width: 576px) {
+    .quest-container {
+      min-width: 0;
+      width: 100%;
+    }
+    .standard-page .d-flex.w-75,
+    .standard-page .flex-wrap.w-75 {
+      width: 100% !important;
+    }
+  }
+
   .quest-group {
     .items {
       border-radius: 2px;

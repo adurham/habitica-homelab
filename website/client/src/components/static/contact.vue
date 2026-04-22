@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6 offset-3">
+      <div class="col-12 col-md-6 offset-md-3">
         <h1>{{ $t('contactUs') }}</h1>
         <p>
           {{ $t('reportAccountProblems') }}

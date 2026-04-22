@@ -215,6 +215,12 @@ $pmHeaderHeight: 56px;
         var(--banner-damage-paused-height, 0px) -
         var(--banner-gems-promo-height, 0px)
       );
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight});
+      }
     }
 
     .disable-background {
@@ -537,6 +543,12 @@ h3 {
   .empty-messages, .message-scroll {
     flex: 1;
   }
+
+  // On phones, stack below the conversation list rather than side-by-side.
+  @media (max-width: 576px) {
+    width: 100%;
+    min-height: 300px;
+  }
 }
 
 .message-scroll {
@@ -623,6 +635,12 @@ h3 {
 
   @media only screen and (max-width: 768px) {
     width: 280px;
+  }
+
+  // On phones, the conversation list needs the full viewport width — the
+  // messages-column is hidden and conversations pick the page layout.
+  @media (max-width: 576px) {
+    width: 100%;
   }
 }
 

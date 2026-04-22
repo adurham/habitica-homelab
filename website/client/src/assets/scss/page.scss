@@ -14,6 +14,34 @@ body {
   select {
     font-size: 16px !important;
   }
+
+  // Bootstrap non-responsive offset/col classes break layouts on narrow screens
+  // (e.g. `col-6 offset-3` shifts content by 25% on phones, clipping it).
+  // Neutralise them so pages fall back to full-width on mobile.
+  .offset-1, .offset-2, .offset-3, .offset-4, .offset-5,
+  .offset-6, .offset-7, .offset-8, .offset-9, .offset-10, .offset-11 {
+    margin-left: 0 !important;
+  }
+  .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  // Percent/fixed-width utility classes that break on phones
+  .w-75, .w-50, .w-448 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  // Page headers must not be clipped by any ancestor — force normal flow,
+  // no negative margins, full width within the standard-page padding box.
+  .page-header {
+    position: relative;
+    left: auto !important;
+    margin-left: 0 !important;
+    max-width: 100%;
+    overflow: visible;
+  }
 }
 
 .standard-sidebar {

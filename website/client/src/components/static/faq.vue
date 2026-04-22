@@ -1,6 +1,6 @@
 <template>
   <div class="top-container mx-auto">
-    <div class="main-text mr-4 col-8">
+    <div class="main-text mr-md-4 col-12 col-md-8">
       <!-- title -->
       <div
         class="title-details"
