@@ -6,6 +6,16 @@ body {
   background: $gray-700;
 }
 
+// iOS Safari auto-zooms when focusing inputs with computed font-size <16px,
+// causing viewport clipping. Force 16px on phones to prevent this.
+@media (max-width: 576px) {
+  input:not([type=checkbox]):not([type=radio]):not([type=range]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
 .standard-sidebar {
   background: $gray-600;
   padding: 24px;
