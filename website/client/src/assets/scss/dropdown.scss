@@ -59,6 +59,14 @@
   color: $gray-50 !important;
   cursor: pointer;
 
+  // Phone touch targets: default 40pt rows are too tight for the user
+  // dropdown (Messages/Profile/Stats/Settings/…), causing mis-taps on
+  // neighbouring items. Bump to 48pt (Apple HIG minimum is 44pt).
+  @media (max-width: 576px) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
   --dropdown-item-hover-icon-color: #{$gray-200};
 
   &:focus {
