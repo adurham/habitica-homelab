@@ -308,19 +308,19 @@ export default {
       subSection: this.$t('notifications'),
     });
 
-    // Probe server Web Push config + current browser subscription state so
-    // the toggle reflects reality on page load.
-    if (this.webPush.supported) {
-      try {
-        const status = await webPushLib.getStatus();
-        this.webPush.serverEnabled = status.enabled;
-        if (status.enabled) {
-          const sub = await webPushLib.currentSubscription();
-          this.webPush.subscribed = Boolean(sub);
-        }
-      } catch (err) {
-        this.webPush.error = err.message || String(err);
+    // Always probe the server so the row renders (with the "Not supported —
+    // install as PWA" hint) even on iOS Safari, where PushManager is absent
+    // until the site is added to the Home Screen. Only hit the browser-side
+    // subscription API if the environment actually exposes it.
+    try {
+      const status = await webPushLib.getStatus();
+      this.webPush.serverEnabled = status.enabled;
+      if (status.enabled && this.webPush.supported) {
+        const sub = await webPushLib.currentSubscription();
+        this.webPush.subscribed = Boolean(sub);
       }
+    } catch (err) {
+      this.webPush.error = err.message || String(err);
     }
     // If ?unsubFrom param is passed with valid email type,
     // automatically unsubscribe users from that email and
