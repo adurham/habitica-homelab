@@ -33,6 +33,14 @@ export default function staticMiddleware (expressApp) {
   /* The remaining files are not cached yet. */
   expressApp.use('/static', express.static(`${BASE_DIR}/website/client/dist/static`));
 
+  /* Web Push service worker. Must live at site root so its registration
+     scope covers the whole app, not a /static subtree. */
+  expressApp.get('/sw.js', (req, res) => {
+    res.set('Service-Worker-Allowed', '/');
+    res.set('Cache-Control', 'no-cache');
+    res.sendFile(path.resolve(`${BASE_DIR}/website/client/dist/sw.js`));
+  });
+
   /* APIdoc files, not cached yet. */
   expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc/html`));
 }
